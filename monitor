@@ -1,0 +1,24 @@
+#!/bin/bash
+
+mon="wlan0mon"
+iface="wlan0"
+
+
+sudo iwconfig
+
+echo "input interface would you like"
+ read input
+echo "would you like to enable monitor mode. (start/stop/quit/restart)"
+ read input
+
+if [[ $input == start ]]; then
+	sudo airmon-ng check kill && sudo airmon-ng start $iface
+elif [[ $input == stop ]]; then
+	sudo airmon-ng stop $mon
+    echo "monitor has bee stoped"
+fi
+if [[ $input == quit || $input == restart ]]; then
+	sudo service NetworkManager restart
+    echo "goody bye, network manager was restarted"
+    exit 0
+fi
